@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring中的依赖注入
+        IOC用于削减耦合（依赖关系）
+        依赖关系的管理交给spring维护：在当前类中需要用到其他类的对象，由spring提供，只需要在配置文件中说明
+        依赖关系的维护就称为依赖注入
+        能注入的数据有三类
+            基本类型与String
+            其他bean类型：在配置文件或注解中配置过的bean
+            复杂类型/集合类型
+        注入方式有三种
+            使用构造函数提供
+            使用set方法提供
+            使用注解提供
+    -->
+
+    <!--构造函数注入
+        使用bean标签内部的constructor-arg标签
+        标签中的属性
+            type：用于指定要注入的数据类型，同时也是构造函数中某个/某些参数的类型，并不能独立注入，只能给同一种数据类型一起注入
+            index：用于给指定索引位置的参数赋值，从0开始
+            name：用于给指定名称的参数赋值
+            ============用于给构造方法中哪个参数赋值================
+            value：用于给基本类型和String传值
+            ref：传其他Bean类型的引用，在核心容器中出现过的Bean对象
+
+        特点：必须注入数据才能创建Bean对象
+        弊端：改变了Bean对象的实例化方式，即使用不到也必须提供
+    -->
+    <bean id="accountService" class="service.impl.AccountServiceImpl">
+        <constructor-arg name="name" value="test"></constructor-arg>
+        <constructor-arg name="age" value="18"></constructor-arg>
+        <constructor-arg name="birthday" ref="now"></constructor-arg>
+    </bean>
+
+    <bean id="now" class="java.util.Date"></bean>
+
+    <!--set方法注入
+        bean标签内的property标签
+            name：用于指定注入时调用的set方法名称
+            ============用于给构造方法中哪个参数赋值================
+            value：用于给基本类型和String传值
+            ref：传其他Bean类型的引用，在核心容器中出现过的Bean对象
+
+        优势与弊端与构造函数注入相反
+
+    -->
+    <bean id="accountService2" class="service.impl.AccountServiceImpl2">
+        <property name="name" value="TEST"></property>
+        <property name="age" value="19"></property>
+        <property name="birthday" ref="now"></property>
+    </bean>
+
+    <!--复杂类型/集合类型注入
+        用于给List结构集合注入的标签有list set array
+        用于给Map结构集合注入的标签有map props
+    -->
+    <bean id="accountService3" class="service.impl.AccountServiceImpl3">
+    <property name="myStrs">
+        <array>
+            <value>AAA</value>
+            <value>BBB</value>
+            <value>CCC</value>
+        </array>
+    </property>
+
+    <property name="myList">
+    <list>
+        <value>AAA</value>
+        <value>BBB</value>
+        <value>CCC</value>
+    </list>
+    </property>
+
+    <property name="mySet">
+        <set>
+            <value>AAA</value>
+            <value>BBB</value>
+            <value>CCC</value>
+        </set>
+    </property>
+
+    <property name="myMap">
+        <map>
+            <entry key="testA" value="AAA"></entry>
+            <entry key="testB">
+                <value>BBB</value>
+            </entry>
+        </map>
+    </property>
+
+    <property name="myProps">
+        <props>
+            <prop key="testC">CCC</prop>
+            <prop key="testD">DDD</prop>
+        </props>
+    </property>
+
+    </bean>
+
+</beans>
