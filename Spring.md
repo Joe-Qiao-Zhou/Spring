@@ -292,11 +292,11 @@
     - 将当前类对象存入容器中，`value`属性用于指定Bean对象的id，默认是当前类名且首字母小写
     - `@Controller @Service @Repository`：与`@Componment`完全相同，只是为了三层架构而设计
 - 用于注入数据，同`<property>`标签
-  - `@Autowired`：用于变量或方法
+  - `@Autowired`：用于变量或方法，Spring框架提供，默认根据类型注入
     - set方法**不是必须**的：`@Autowired`标记会去找`@Component`标记，只要匹配就注入成功；如果有多个匹配，则先看类型再看变量名，如果变量名仍不一样就注入失败
   - `@Qualifier`：用于变量或方法，搭配`@Autowired`使用
     - 在类名基础上按照名称注入：当一个接口的多个实现类都在容器中时Spring无法自动注入，必须手动使用该注解指定名称
-  - `@Resource`：直接按照Bean对象的id注入
+  - `@Resource`：用于变量或方法，直接按照Bean对象的id注入，JavaEE规范
   - 以上三个注入都**只能**注入Bean类型数据，基本类型和String无法使用
   - 集合类型的注入**只能**通过XML实现
   - `@Value`：用于注入基本类型和String

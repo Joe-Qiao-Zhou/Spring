@@ -525,7 +525,7 @@
                <transactionManager type="JDBC"/>
                <dataSource type="POOLED">
                    <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                   <property name="url" value="jdbc:mysql:///ssm?serverTimezone=UTC&amp;useSSL=false"/>
+                   <property name="url" value=" "/>
                    <property name="username" value="root"/>
                    <property name="password" value="root"/>
                </dataSource>
